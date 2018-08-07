@@ -1,0 +1,60 @@
+﻿form {
+    width: 450px;
+    margin: auto;
+    margin-top: 70px;
+}
+
+.mgb-10 {
+    margin-bottom: 10px;
+}
+
+.login-mainform {
+    margin: 0 auto;
+    display: block;
+    padding: 0;
+    border: 1px solid #e3e3e3;
+    border-radius: 6px;
+}
+
+.logo-image {
+    margin-bottom:20px;
+}
+
+    .logo-image img {
+        display: block;
+        margin: auto;
+    }
+
+.login-mainform .title {
+    padding: 15px;
+    font-size: 22px;
+    font-weight: bold;
+    border-bottom: 1px solid #e3e3e3;
+    background: #f7f6f6;
+    border-radius: 6px;
+}
+
+    .login-mainform .login-section {
+        padding: 15px 80px;
+    }
+
+    .login-mainform .submit input {
+        width: 100%;
+        padding: 6px;
+        font-size: 20px;
+        background-color: rgba(6, 66,109,0.88);
+        border-color: rgba(6, 66,109,0.88);
+    }
+
+    .password-section input, .email-section input {
+        font-size: 18px;
+        height: 40px;
+    }
+
+.input-validation-error {
+    border-color: #920404 !important;
+}
+
+.field-validation-error {
+    color: #920404;
+}

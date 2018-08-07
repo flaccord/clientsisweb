@@ -1,0 +1,292 @@
+﻿/* Move down content because we have a fixed navbar that is 50px tall */
+/*body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}*/
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set widths on the form inputs since otherwise they're 100% wide */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.nopadding {
+    padding: 0px;
+}
+
+.navbar-nav {
+    font-size: 15px;
+}
+
+.right {
+    float: right;
+}
+
+.card-body {
+    cursor: pointer;
+}
+
+.navbar-nav > li {
+    display: block;
+    width: 100%;
+}
+
+.pd10 {
+    padding: 0px 10px !important;
+}
+
+table.dataTable tbody td {
+    padding: 8px 0px !important;
+}
+
+.color-section {
+    font-size:15px;
+    font-weight: 600;
+}
+
+td.center {
+    text-align: center;
+}
+
+#capturas_table_length, .dataTables_filter {
+    display: none;
+}
+
+
+.custom-container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+
+@media (min-width: 1200px) {
+    .custom-container {
+        width: 1315px;
+    }
+}
+
+#main-body {
+    display: flex;
+    align-items: stretch;
+}
+
+#sidebar, .navbar-inverse {
+    background-color: rgba(6, 66,109,0.88);
+}
+
+#sidebar {
+    position: fixed;
+    width: 225px;
+    height: 100%;
+    z-index: 1;
+}
+
+#main-content {
+    padding-left: 240px;
+    z-index: 0;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+}
+
+.navbar-inverse {
+    border-color: #0069B3;
+}
+
+.nav > li > a:hover {
+    background-color: rgba(12, 55, 86, 0.88);
+    color: white;
+}
+
+.mobile-view {
+    display: none !important;
+}
+
+.navbar-brand img {
+    height: 50px;
+    width: 225px;
+}
+
+.navbar-brand {
+    height: 50px !important;
+    padding: 0px !important;
+}
+
+.navbar .custom-container {
+    padding-left: 0px;
+    width: 100%;
+}
+
+h1.dash-header {
+    margin-bottom: 45px;
+}
+
+
+
+.navbar-nav > li > a {
+    padding-left: 45px;
+    color: white;
+}
+
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav > li > a {
+    color: white;
+}
+
+.images-section{
+    width: 250px;
+    height: 50px;
+}
+
+.sexo-info label {
+    margin-left: 10px;
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    font-weight: 100;
+}
+
+.inl-blk {
+    display: inline-block !important;
+}
+
+.search-codigo {
+    display: block;
+}
+
+.panel-heading a {
+    display:block;
+    color: black;
+    font-weight: bold;
+}
+
+    .panel-heading a:hover, .panel-heading a:focus {
+        text-decoration: none;
+    }
+
+.g-recaptcha div {
+    margin: 0 auto;
+}
+
+#Solicitud_form {
+    margin-bottom: 40px;
+}
+
+span.dtr-title {
+    font-weight: bold;
+}
+
+tr.child td.child ul.dtr-details {
+    list-style: none;
+}
+
+label.anchor {
+    color: #337ab7;
+    cursor: pointer;
+    font-weight: 100;
+    margin-bottom: 0;
+}
+
+.error, .error:hover {
+    color: red;
+}
+
+.azul {
+    background-color: #1D628A;
+}
+.verde {
+    background-color: #0E844F;
+}
+.amarilio {
+    background-color: #F1C340;
+}
+
+.navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
+    background-color: transparent !important;
+}
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+    .jumbotron {
+        margin-top: 20px;
+    }
+
+    .body-content {
+        padding: 0;
+    }
+
+    .mobile-view {
+        display: none !important;
+    }
+
+}
+
+@media screen and (max-width: 441px) {
+    #chLine {
+        width: 320px !important;
+    }
+
+    .mobile-view {
+        display: block !important;
+    }
+
+    .desktop-view {
+        display: none !important;
+    }
+
+    .navbar-nav > li > a {
+        padding-left: 15px;
+    }
+
+    .body-content {
+        padding: 0px;
+    }
+
+    .navbar-collapse {
+        padding: 0px 15px;
+    }
+
+    #sidebar {
+        position: absolute;
+        z-index: 1;
+        height: 100%;
+        width: auto;
+        background-color: rgba(6, 66,109,0.88);
+    }
+
+    #main-content {
+        padding-left: 15px;
+    }
+
+    .navbar-brand img {
+        height: 51px;
+        width: 150px;
+    }
+
+    h1.dash-header {
+        margin-bottom: 45px;
+        font-size: 25px;
+        font-weight: 700;
+    }
+    #top-header {
+        padding: 10px 20px;
+    }
+
+    #MainContent_codigo_postal {
+        width: 82%;
+    }
+
+    #puntos-section {
+        width: 100% !important;
+    }
+}
