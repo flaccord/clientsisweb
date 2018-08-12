@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:tns="http://impl.soap.ws.servicio.buro_credito/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://soap.ws.servicio.buro_credito/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://cxf.apache.org/bindings/xformat" name="ConsultaBuroCreditoWebServiceImplService" targetNamespace="http://impl.soap.ws.servicio.buro_credito/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:import namespace="http://soap.ws.servicio.buro_credito/" location="http://64.182.79.210:8080/buro_credito.servicio/burocredito/soap?wsdl=ConsultaBuroCreditoWebService.wsdl" />
+  <wsdl:types />
+  <wsdl:binding name="ConsultaBuroCreditoWebServiceImplServiceSoapBinding" type="ns1:ConsultaBuroCreditoWebService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="consultarBuroCredito">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="consultarBuroCredito">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="consultarBuroCreditoResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="consultarBuroCreditoAutenticacion">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="consultarBuroCreditoAutenticacion">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="consultarBuroCreditoAutenticacionResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ConsultaBuroCreditoWebServiceImplService">
+    <wsdl:port name="ConsultaBuroCreditoWebServiceImplPort" binding="tns:ConsultaBuroCreditoWebServiceImplServiceSoapBinding">
+      <soap:address location="http://64.182.79.210:8080/buro_credito.servicio/burocredito/soap" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

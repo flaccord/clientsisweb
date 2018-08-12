@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="http://64.182.79.210:8080/buro_credito.servicio/burocredito/soap?wsdl=ConsultaBuroCreditoWebService.wsdl" filename="ConsultaBuroCreditoWebService.wsdl" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="http://64.182.79.210:8080/buro_credito.servicio/burocredito/soap?wsdl" filename="ConsultaBuroCreditoWebServiceImplService.wsdl" />
+  </Results>
+</DiscoveryClientResultsFile>

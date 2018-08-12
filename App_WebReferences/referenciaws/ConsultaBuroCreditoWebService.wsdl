@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:ns1="http://soap.ws.servicio.buro_credito/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ConsultaBuroCreditoWebService" targetNamespace="http://soap.ws.servicio.buro_credito/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema xmlns:tns="http://soap.ws.servicio.buro_credito/" targetNamespace="http://soap.ws.servicio.buro_credito/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="consultarBuroCredito" type="tns:consultarBuroCredito" />
+      <xs:element name="consultarBuroCreditoAutenticacion" type="tns:consultarBuroCreditoAutenticacion" />
+      <xs:element name="consultarBuroCreditoAutenticacionResponse" type="tns:consultarBuroCreditoAutenticacionResponse" />
+      <xs:element name="consultarBuroCreditoResponse" type="tns:consultarBuroCreditoResponse" />
+      <xs:element name="datosBuroCredito" type="tns:datosBuroCredito" />
+      <xs:element name="respuestaBuroCredito" type="tns:respuestaBuroCredito" />
+      <xs:complexType name="consultarBuroCredito">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="tns:datosBuroCredito" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="datosBuroCredito">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="apellidoMaterno" type="xs:string" />
+          <xs:element minOccurs="0" name="apellidoPaterno" type="xs:string" />
+          <xs:element minOccurs="0" name="calle" type="xs:string" />
+          <xs:element minOccurs="0" name="ciudad" type="xs:string" />
+          <xs:element minOccurs="0" name="codigoPostal" type="xs:string" />
+          <xs:element minOccurs="0" name="colonia" type="xs:string" />
+          <xs:element minOccurs="0" name="creditoAutomotriz" type="xs:string" />
+          <xs:element minOccurs="0" name="creditoHipotecario" type="xs:string" />
+          <xs:element minOccurs="0" name="cuentaTarjetaCredito" type="xs:string" />
+          <xs:element minOccurs="0" name="estado" type="xs:string" />
+          <xs:element minOccurs="0" name="fechaNacimiento" type="xs:string" />
+          <xs:element minOccurs="0" name="lote" type="xs:string" />
+          <xs:element minOccurs="0" name="manzana" type="xs:string" />
+          <xs:element minOccurs="0" name="municipio" type="xs:string" />
+          <xs:element minOccurs="0" name="numeroExterior" type="xs:string" />
+          <xs:element minOccurs="0" name="numeroInterior" type="xs:string" />
+          <xs:element minOccurs="0" name="primerNombre" type="xs:string" />
+          <xs:element minOccurs="0" name="referenciaCliente" type="xs:string" />
+          <xs:element minOccurs="0" name="rfc" type="xs:string" />
+          <xs:element minOccurs="0" name="segundoNombre" type="xs:string" />
+          <xs:element minOccurs="0" name="tipoConsulta" type="xs:string" />
+          <xs:element minOccurs="0" name="ultimosCuatroDigitosTarjetaCredito" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="consultarBuroCreditoResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:respuestaBuroCredito" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="respuestaBuroCredito">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="error" type="xs:boolean" />
+          <xs:element minOccurs="0" name="fechaConsulta" type="xs:string" />
+          <xs:element minOccurs="0" name="mensaje" type="xs:string" />
+          <xs:element minOccurs="0" name="nombreCliente" type="xs:string" />
+          <xs:element minOccurs="0" name="referenciaBuroCredito" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="consultarBuroCreditoAutenticacion">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="tns:datosBuroCredito" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="consultarBuroCreditoAutenticacionResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:respuestaBuroCredito" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="consultarBuroCreditoAutenticacionResponse">
+    <wsdl:part name="parameters" element="ns1:consultarBuroCreditoAutenticacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="consultarBuroCreditoResponse">
+    <wsdl:part name="parameters" element="ns1:consultarBuroCreditoResponse" />
+  </wsdl:message>
+  <wsdl:message name="consultarBuroCredito">
+    <wsdl:part name="parameters" element="ns1:consultarBuroCredito" />
+  </wsdl:message>
+  <wsdl:message name="consultarBuroCreditoAutenticacion">
+    <wsdl:part name="parameters" element="ns1:consultarBuroCreditoAutenticacion" />
+  </wsdl:message>
+  <wsdl:portType name="ConsultaBuroCreditoWebService">
+    <wsdl:operation name="consultarBuroCredito">
+      <wsdl:input name="consultarBuroCredito" message="ns1:consultarBuroCredito" />
+      <wsdl:output name="consultarBuroCreditoResponse" message="ns1:consultarBuroCreditoResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="consultarBuroCreditoAutenticacion">
+      <wsdl:input name="consultarBuroCreditoAutenticacion" message="ns1:consultarBuroCreditoAutenticacion" />
+      <wsdl:output name="consultarBuroCreditoAutenticacionResponse" message="ns1:consultarBuroCreditoAutenticacionResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

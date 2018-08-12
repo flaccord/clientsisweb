@@ -1,0 +1,45 @@
+<html>
+<title>Consulta de Clientes Web</title>
+	<head>
+		<!-- Estilos CSS -->
+		<style type="text/css">
+		</style>
+        <script language="javascript" type="text/javascript">
+			function AJAXCrearObjeto() {
+				var xmlhttp = false;
+				try {
+					xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+				} catch (e) {
+					try {
+						xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+					} catch (E) {
+						xmlhttp = false;
+					}
+				}
+
+				if (!xmlhttp && typeof XMLHttpRequest != 'undefined') {
+					xmlhttp = new XMLHttpRequest();
+				}
+				return xmlhttp;
+			}
+
+			function loadAspx(url, id) {
+				var ajax = AJAXCrearObjeto();
+				ajax.open("GET", url, "true");
+				ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+				ajax.send('null');
+				var midiv = document.getElementById(id);
+
+				ajax.onreadystatechange = function() {
+					if (ajax.readyState == 4) {
+						midiv.innerHTML = ajax.responseText;
+					}
+				}	
+			}
+        </script>
+    </head>
+    <body onLoad="loadAspx('menu.aspx','menu')">
+			<div id="menu" style="width:100%;height:100%; vertical-align:middle; text-align:left;" >
+			</div>
+    </body>
+</html>
