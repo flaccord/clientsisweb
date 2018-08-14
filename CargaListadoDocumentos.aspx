@@ -5,8 +5,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
     <title>Consulta y Gestión de Documentos</title>
+    <script src="disenio1/Scripts/jquery-3.3.1.min.js" type="text/javascript"></script>
+    <link href="disenio1/newdesign/bootstrap.min.css" rel="stylesheet" />
+    <%--<link href="disenio1/newdesign/sb-admin-2.css" rel="stylesheet" />--%>
+    <script src="disenio1/Scripts/bootstrap.min.js" type="text/javascript"></script>
+    <link href="disenio1/newdesign/bootstrap-theme.css" rel="stylesheet" />
     <style type="text/css">
         .grid .datatable{width:100%; border:none; padding:0px; margin:0px; color:#333;}
+        
     </style>
 </head>
 <body>

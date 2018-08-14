@@ -88,7 +88,7 @@
                 var LeftPosition = (screen.width) ? (screen.width - w) / 2 : 100;
                 var TopPosition = (screen.height) ? (screen.height - h) / 2 : 100;
                 var config = "width=" + w + ", height=" + h + ", left=" + LeftPosition + ", top=" + TopPosition + ", toolbar=0,location=0,status=1,menubar=0,directories=0,scrollbars=1,resizable=0";
-                var urlace = "ConsultaGestionaDocumentos.aspx?IDRef=" + cred + "&rfc=" + rfc + "&cliente=" + cliente;
+                var urlace = "CargaListadoDocumentosVer.aspx?IDRef=" + cred + "&rfc=" + rfc + "&cliente=" + cliente;
                 window.open(urlace, "Documentos", config);
             }
         }
