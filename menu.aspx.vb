@@ -15,7 +15,7 @@ Partial Class menu
             End If
             '--
             If Session("ComunidadUser") = 1 Then
-                lbConsultas.Text = "<i class='fa fa-wpforms fa-fw'></i> Capturas"
+                lbConsultas.Text = "<i class='fa fa-table fa-fw'></i> Capturas"
             End If
 
             If Session("PerfilUser") = "Admin" Then

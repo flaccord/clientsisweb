@@ -5,27 +5,27 @@ Imports System.IO
 
 Partial Class CargarArchivos
     Inherits System.Web.UI.Page
-
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         ErrorMsg.Text = ""
-		'-- Si no hay usuario logueado, que vaya directamente al loguin
-		If Session("ActiveUser") = "" Then
-			Response.Write("<script language='JavaScript'>top.location.href='LoginAcceso.aspx';</script>")
-		End If
-		'--
+        '-- Si no hay usuario logueado, que vaya directamente al loguin
+        If Session("ActiveUser") = "" Then
+            Response.Write("<script language='JavaScript'>top.location.href='LoginAcceso.aspx';</script>")
+        End If
+        CloseModal.Value = "false"
+        '--
         If Request.QueryString("IDRef") = "" Or Request.QueryString("IDDoc") = "" Then
             ErrorMsg.Text = "No se cargaron correctamente los parámetros para la página"
             Button2.Visible = False
         End If
     End Sub
 
-    Protected Sub Button1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button1.Click
-        Dim strScript As String
-        strScript = "<script language=" & Chr(34) & "javascript" & Chr(34) & ">" & Chr(10) & Chr(13)
-        strScript = strScript & "window.close();" & Chr(10) & Chr(13)
-        strScript = strScript & "</script>" & Chr(10) & Chr(13)
-        ClientScript.RegisterClientScriptBlock(Me.GetType(), "Close", strScript)
-    End Sub
+    'Protected Sub Button1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button1.Click
+    '    Dim strScript As String
+    '    strScript = "<script language=" & Chr(34) & "javascript" & Chr(34) & ">" & Chr(10) & Chr(13)
+    '    strScript = strScript & "$(document.getElementById('agregarModal')).modal('hide');" & Chr(10) & Chr(13)
+    '    strScript = strScript & "</script>" & Chr(10) & Chr(13)
+    '    ClientScript.RegisterClientScriptBlock(Me.GetType(), "Close", strScript)
+    'End Sub
 
     Private Function GetEncoderInfo(ByVal mimeType As String) As ImageCodecInfo
         Dim encoders As ImageCodecInfo()
@@ -99,7 +99,7 @@ Partial Class CargarArchivos
 
             Dim strScript As String
             strScript = "<script language=" & Chr(34) & "javascript" & Chr(34) & ">" & Chr(10) & Chr(13)
-            strScript = strScript & "window.opener.document.location.href='CargaListadoDocumentosVer.aspx?IDRef=" & Request.QueryString("IDRef") & "&rfc=" & Request.QueryString("rfc") & "&cliente=" & Request.QueryString("cliente") & "';" & Chr(10) & Chr(13)
+            strScript = strScript & "window.parent.document.location.href='CargaListadoDocumentosVer.aspx?IDRef=" & Request.QueryString("IDRef") & "&rfc=" & Request.QueryString("rfc") & "&cliente=" & Request.QueryString("cliente") & "';" & Chr(10) & Chr(13)
             strScript = strScript & "</script>" & Chr(10) & Chr(13)
             ClientScript.RegisterClientScriptBlock(Me.GetType(), "ActualizaP" & Fup1.FileName, strScript)
 

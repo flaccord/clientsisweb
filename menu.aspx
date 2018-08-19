@@ -71,7 +71,7 @@
                     <!-- /.dropdown -->
                     <!-- /.dropdown -->
                     <li class="dropdown">
-                        <asp:LinkButton ID="lbFinSession" runat="server" Text="Finalizar Sesión" />
+                        <asp:LinkButton ID="lbFinSession" runat="server" Text="<i class='fa fa-sign-out'></i> Finalizar Sesión" />
                         <%--<a href="#">
                             <i class="fa fa-sign-out fa-fw"></i>Cerrar Sesión
                         </a>--%>
@@ -101,7 +101,7 @@
                                 <asp:LinkButton ID="lbUsuarios" runat="server" Text="Usuarios" Visible="False" />
                             </li>
                             <li>
-                               <asp:LinkButton ID="lbConsultas" runat="server" Text="<i class='fa fa-wpforms fa-fw'></i> Consultas" />
+                               <asp:LinkButton ID="lbConsultas" runat="server" Text="<i class='fa fa-table fa-fw'></i> Consultas" />
                             </li>
                             <li>
                                <asp:LinkButton ID="lbReporteBC" runat="server" Text="<i class='fa fa-files-o fa-fw'></i> Reporte BC"/>

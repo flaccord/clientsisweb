@@ -45,11 +45,13 @@ Partial Class LoginAcceso
 
             If Not _val Then
                 passwordValidation.Text = "El usuario y password dados no coinciden con registros en el sistema"
+                validationPassError.Style("display") = "block;"
                 Exit Sub
             End If
 
             If Not _act Then
                 usuarioValidation.Text = "El usuario está Inactivo en el sistema"
+                validationUserError.Style("display") = "block;"
                 Exit Sub
             End If
 

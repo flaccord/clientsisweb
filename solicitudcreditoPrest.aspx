@@ -27,6 +27,13 @@
         #page-wrapper {
             margin: 0px;
         }
+
+        .tipoConsulta span {
+            margin-right: 10px;
+        }
+            .tipoConsulta span > input {
+                margin-right: 5px;
+            }
     </style>
     <link href="disenio1/newdesign/bootstrap.min.css" rel="stylesheet" />
     <link href="disenio1/newdesign/sb-admin-2.css" rel="stylesheet" />
@@ -511,7 +518,7 @@
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-12 form-group">
                                         <label class="fntbld">Tipo De Consulta *</label>
-                                        <div class="col-lg-12 col-md-12 col-sm-12 nopadding">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 nopadding tipoConsulta">
                                             <asp:RadioButton ID="tradicional" AutoPostBack="true" placeholder="Consulta Tradicional *" Text="Consulta Tradicional" GroupName="tipoConsulta" runat="server"></asp:RadioButton>
                                             <asp:RadioButton ID="autenticacion" AutoPostBack="true" placeholder="Consulta con Autenticación *" Text="Consulta con Autenticación" Checked="True" GroupName="tipoConsulta" runat="server"></asp:RadioButton>
                                         </div>
@@ -520,7 +527,7 @@
                                         <div>
                                             <label class="fntbld">¿Cuenta con Tarjeta de Credito? *</label>
                                         </div>
-                                        <div class="col-lg-12 col-md-12 col-sm-12 nopadding">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 nopadding tipoConsulta">
                                             <asp:RadioButton ID="tcreditosi" placeholder="Si *" Text="Si" GroupName="cuentaTarjetaCredito" runat="server"></asp:RadioButton>
                                             <asp:RadioButton ID="tcreditono" placeholder="No *" Text="No" Checked="True" GroupName="cuentaTarjetaCredito" runat="server"></asp:RadioButton>
                                         </div>
@@ -537,7 +544,7 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 form-group">
                                         <label class="fntbld">¿Ha Ejercido Un Credito Hipotecario? *</label>
-                                        <div class="col-lg-12 col-md-12 col-sm-12 nopadding">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 nopadding tipoConsulta">
                                             <asp:RadioButton ID="hipotecariosi" placeholder="Si *" Text="Si" GroupName="creditoHipotecario" runat="server"></asp:RadioButton>
                                             <asp:RadioButton ID="hipotecariono" placeholder="No *" Text="No" Checked="True" GroupName="creditoHipotecario" runat="server"></asp:RadioButton>
                                         </div>
@@ -546,7 +553,7 @@
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-12 form-group">
                                         <label class="fntbld">Ha Ejercido un Crédito Automotriz en los Últimos 24 Meses? *</label>
-                                        <div class="col-lg-12 col-md-12 col-sm-12 nopadding">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 nopadding tipoConsulta">
                                             <asp:RadioButton ID="automotrizsi" placeholder="Si *" Text="Si" GroupName="creditoAutomotriz" runat="server"></asp:RadioButton>
                                             <asp:RadioButton ID="automotrizmo" placeholder="No *" Text="No" Checked="True" GroupName="creditoAutomotriz" runat="server"></asp:RadioButton>
                                         </div>
@@ -567,7 +574,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-md-2 col-sm-12 form-group">
-                                        <label class="fntbld">Relacion</label>
+                                        <label class="fntbld">Relación</label>
                                         <div class="col-lg-12 col-md-12 col-sm-12 nopadding">
                                             <asp:TextBox CssClass="form-control" ID="relacion1" runat="server" placeholder="Relacion Familiar"></asp:TextBox>
                                         </div>
@@ -599,7 +606,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-md-2 col-sm-12 form-group">
-                                        <label class="fntbld">Relacion</label>
+                                        <label class="fntbld">Relación</label>
                                         <div class="col-lg-12 col-md-12 col-sm-12 nopadding">
                                             <asp:TextBox CssClass="form-control" ID="relacion2" runat="server" placeholder="Relacion Familiar"></asp:TextBox>
                                         </div>
@@ -701,7 +708,7 @@
                             <div class="g-recaptcha" data-sitekey="6Lee5mYUAAAAAAEXFbrqvOAp2rJjWMKiTGbHMKtK" data-callback="correctCaptcha"></div>
                             <span id="captcha" style="color: while" />
                         </div>
-                        <div class="align-center" id="enviarform" style="display:none;">
+                        <div class="align-center" id="enviarform" style="display: none;">
                             <div class="align-center">
                                 <asp:Button ID="btninsertdatos" CssClass="btn btn-success" runat="server" Text="Enviar" />
                             </div>

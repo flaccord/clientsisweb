@@ -12,13 +12,7 @@
     <link href="disenio1/newdesign/bootstrap-theme.css" rel="stylesheet" />
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <link href="disenio1/newdesign/Site.css" rel="stylesheet" />
-    <script type="text/javascript">
-        function SaveWithParameter(param) {
-            debugger;
-            __doPostBack('btnSave', param);
-        }
-    </script>
-    
+
     <style type="text/css">
         #selected-document {
             padding: 20px 40px 40px;
@@ -98,13 +92,29 @@
         }
 
         .comp-vista {
-            margin: 10px 0 !important;
+            /*margin: 10px 0 !important;*/
             padding: 6px 10px !important;
+            color: black;
+            border: 1px solid #ccc;
         }
 
-            .comp-vista a {
-                color: black;
-            }
+        .panel .grid {
+            overflow: hidden;
+        }
+
+        .comp-vista a {
+            color: black;
+        }
+
+        .modal-body {
+            padding: 0px !important;
+        }
+
+        #agreraCancel {
+            position: absolute;
+            bottom: 13px;
+            right: 167px;
+        }
     </style>
 </head>
 <body>
@@ -118,13 +128,23 @@
                     <h4 class="modal-title">Agregar Document</h4>
                 </div>
                 <div class="modal-body">
-                    <input type="file" class="btn btn-file" />
+                    <iframe id="agrerarDocument" style="width: 100%; height: auto; vertical-align: middle; text-align: left;" src="" scrolling="no" frameborder="0" runat="server"></iframe>
+                    <%--<input type="file" class="btn btn-file" />--%>
                 </div>
-                <div class="modal-footer">
+                <button type="button" id="agreraCancel" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <%--<div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-info" data-dismiss="modal">Sublr documento</button>
-                </div>
+                </div>--%>
             </div>
+            <script type="text/javascript">
+
+                window.onload = new function () {
+                    debugger;
+                    if ($("#CloseModal").value == "true") {
+                        $(document.getElementById('agregarModal')).modal('hide');
+                    }
+                }
+            </script>
         </div>
     </div>
     <!-- Modal End-->
@@ -162,11 +182,13 @@
                                 <div class="panel-body panel-collapse collapse in" id="vista-previa">
                                     <div class="grid nopadding">
                                         <div class="col-lg-12 col-xs-12 col-md-12 nopadding">
-                                            <img src="images\no-image-available.png" alt="Imagen" name="imgLoadN" id="imgLoad" width="300" style="height: 300px" />
+                                            <img src="images\Imagen_no_disponible.png" alt="Imagen" name="imgLoadN" id="imgLoad" width="300" style="height: 300px" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="panel-heading hide"><span class="selected-documentName"></span></div>
+                                <asp:Panel CssClass="panel-heading" runat="server" ID="lowerPanelHeading">
+                                    <asp:Label ID="SelectedDoc" runat="server"></asp:Label>
+                                </asp:Panel>
                             </div>
                         </div>
                     </div>
@@ -174,13 +196,13 @@
                     <div class="col-lg-8 col-md-8 col-sm-12">
                         <div id="documentos-section">
                             <div class="panel panel-default">
+                                <input type="hidden" id="SelectedFileSource" value="" runat="server" />
                                 <div class="panel-heading"><span>Documentos</span></div>
                                 <div class="panel-body panel-collapse collapse in" id="documentos">
                                     <div class="grid nopadding">
                                         <div class="col-lg-12 col-xs-12 col-md-12 nopadding">
                                             <asp:DataGrid ID="DataGrid1" runat="server" CssClass="datatable"
-                                                Font-Name="Verdana" AutoGenerateColumns="false"
-                                                OnItemCommand="btnVistaPrevia_ItemCommand">
+                                                Font-Name="Verdana" AutoGenerateColumns="false">
                                                 <Columns>
                                                     <asp:BoundColumn DataField="Documento" HeaderText="Documento">
                                                         <HeaderStyle Width="245px" Font-Bold="true" />
@@ -190,7 +212,7 @@
                                                     </asp:BoundColumn>
                                                     <asp:TemplateColumn HeaderText="Versión" HeaderStyle-Font-Bold="true" HeaderStyle-Width="110px">
                                                         <ItemTemplate>
-                                                            <asp:DropDownList SelectedValue='<%# Bind("Version") %>' ID="SelectedVersion" OnSelectedIndexChanged="SelectedVersion_SelectedIndexChanged" runat="server" CssClass="form-control doc-version">
+                                                            <asp:DropDownList SelectedValue='<%# Bind("Version") %>' ID="SelectedVersion" runat="server" CssClass="form-control doc-version">
                                                                 <asp:ListItem Value="0" Text="0"></asp:ListItem>
                                                                 <asp:ListItem Value="1" Text="1"></asp:ListItem>
                                                                 <asp:ListItem Value="2" Text="2"></asp:ListItem>
@@ -198,7 +220,7 @@
                                                                 <asp:ListItem Value="4" Text="4"></asp:ListItem>
                                                                 <asp:ListItem Value="5" Text="5"></asp:ListItem>
                                                             </asp:DropDownList>
-                                                             <asp:HiddenField ID="hdfVer" runat="server" Value='<%# Bind("Version") %>' />
+                                                            <asp:HiddenField ID="hdfVer" runat="server" Value='<%# Bind("Version") %>' />
                                                         </ItemTemplate>
                                                         <HeaderStyle></HeaderStyle>
                                                     </asp:TemplateColumn>
@@ -206,8 +228,9 @@
                                                     <asp:TemplateColumn HeaderText="Agregar" HeaderStyle-Font-Bold="true" HeaderStyle-Width="110px">
                                                         <ItemTemplate>
                                                             <asp:Panel Visible="true" runat="server" ID="pnlSubir">
-                                                                <a href="#" onclick="javascript:window.open('CargarArchivos.aspx?IDDoc=<%# DataBinder.Eval(Container.DataItem, "KeyDocumento") %>'+GetParamsValue(),'AgregarImagenManual','left=0,top=0,width=750,height=400,toolbar=0,location=0,status=1,menubar=0,directories=0,scrollbars=0,resizable=0');" class="btn btn-default comp-agr Agregar">
-                                                                    <i class="fa fa-plus"></i>&nbsp;
+                                                                <%--<a href="#" onclick="javascript:window.open('CargarArchivos.aspx?IDDoc=<%# DataBinder.Eval(Container.DataItem, "KeyDocumento") %>'+GetParamsValue(),'AgregarImagenManual','left=0,top=0,width=750,height=400,toolbar=0,location=0,status=1,menubar=0,directories=0,scrollbars=0,resizable=0');" class="btn btn-default comp-agr Agregar">--%>
+                                                                <a href="#" class="btn btn-default comp-agr Agregar" data-value="CargarArchivos.aspx?IDDoc=<%# DataBinder.Eval(Container.DataItem, "KeyDocumento") %>" />
+                                                                <i class="fa fa-plus"></i>&nbsp;
                                                                     Agregar
                                                                 </a>
                                                                 <script type="text/javascript">
@@ -219,16 +242,15 @@
                                                             </asp:Panel>
                                                         </ItemTemplate>
                                                     </asp:TemplateColumn>
-                                                    <asp:TemplateColumn HeaderText="Vista Previa" HeaderStyle-Font-Bold="true" HeaderStyle-Width="110px">
+                                                    <asp:TemplateColumn HeaderText="Vista Previa" HeaderStyle-Font-Bold="True" HeaderStyle-Width="110px">
                                                         <ItemTemplate>
-                                                            <asp:Panel Visible="true" runat="server">
-                                                                <a class="btn btn-default comp-vista" href="CargaListadoDocumentosVer.aspx?IDRef=<%#IDRef%>&cliente=<%#ClienteValue%>&rfc=<%# RfcValue %>&FVer=<%# Eval("Version") %>&selDocument=<%# DataBinder.Eval(Container.DataItem, "KeyDocumento") %>"
+                                                            <asp:Panel Visible="True" runat="server">
+                                                                <a class="btn btn-Default comp-vista" href="CargaListadoDocumentosVer.aspx?IDRef=<%#IDRef%>&cliente=<%#ClienteValue%>&rfc=<%# RfcValue %>&FVer=<%# Eval("Version") %>&IDDoc=<%# DataBinder.Eval(Container.DataItem, "KeyDocumento") %>">
                                                                     <i class="fa fa-search"></i>&nbsp;
                                                                     Vista Previa
                                                                 </a>
-                                                                </script>
                                                             </asp:Panel>
-                                                            
+
                                                         </ItemTemplate>
                                                     </asp:TemplateColumn>
                                                 </Columns>
@@ -250,11 +272,62 @@
 
             jQuery('#agregarModal').css("display", "none");
 
+            function CloseIframeModal() {
+                jQuery('#agregarModal').modal('hide');
+            }
+
             jQuery(".Agregar").on('click', function (event) {
+                debugger;
                 jQuery('#agregarModal').modal('show');
+                var hf_value = 'IDRef=' + document.location.href.split("IDRef=")[1];
+                var iframeURL = "";
+                if (hf_value.indexOf("IDDoc") > 0) {
+                    iframeURL = event.target.dataset.value.split("?")[0] + "?";
+                }
+                else {
+                    iframeURL = event.target.dataset.value + "&";
+                }
+                //var iframeURL = event.target.dataset.value.split("?")[0];
+                $("#agrerarDocument").attr("src", iframeURL + hf_value);
             });
 
+            window.onload = function () {
+                debugger;
+                if ($("#SelectedFileSource").val()) {
+                    $("#imgLoad").attr("src", $("#SelectedFileSource").val());
+                    console.log($("#SelectedFileSource").val());
+                }
+
+                $.urlParam = function (name) {
+                    var results = new RegExp('[\?&]' + name + '=([^&#]*)')
+                        .exec(window.location.search);
+
+                    return (results !== null) ? results[1] || 0 : false;
+                }
+                debugger;
+                var FileVersion = $.urlParam("FVer");
+                var DocumentType = $.urlParam("IDDoc");
+                if (FileVersion > "0" && DocumentType > "0") {
+                    $(".doc-version")[parseInt(DocumentType) - 1].selectedIndex = FileVersion;
+                }
+                
+
+            }
+
+            $("select.doc-version").on('change', function (o) {
+                debugger;
+                var id = o.target.id;
+                $($("#" + id).parent().siblings()[3]).find("a").attr('href', function (i, a) {
+                    debugger;
+                    return a.replace(/FVer=([^&]+)/, function (_, oldval) {
+                        return 'FVer=' + (parseInt(o.target.value))
+
+                    });
+                });
+            });
         });
+
+
     </script>
 </body>
 </html>

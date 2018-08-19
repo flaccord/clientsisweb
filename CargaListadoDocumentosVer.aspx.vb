@@ -6,7 +6,8 @@ Partial Class CargaListadoDocumentosVer
     Public RfcValue As String = ""
     Public ClienteValue As String = ""
     Public FileVersion As String = ""
-
+    Public FileSource As String = ""
+    Public Doctype As String = ""
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         '-- Si no hay usuario logueado, que vaya directamente al loguin
         If Session("ActiveUser") = "" Then
@@ -17,6 +18,7 @@ Partial Class CargaListadoDocumentosVer
         RfcValue = Request.QueryString("rfc")
         ClienteValue = Request.QueryString("cliente")
         FileVersion = Request.QueryString("FVer")
+        Doctype = Request.QueryString("IDDoc")
         rfc.Text = RfcValue
         cliente.Text = ClienteValue
 
@@ -31,6 +33,16 @@ Partial Class CargaListadoDocumentosVer
         If FileVersion IsNot Nothing Then
             CargarYMostrarImagen(FileVersion)
         End If
+
+        If Doctype IsNot Nothing Then
+            If FileVersion IsNot Nothing And Not FileVersion.Equals("0") Then
+                UpdateSelectedDoc(Doctype)
+                lowerPanelHeading.Style("display") = "block"
+            End If
+        Else
+            lowerPanelHeading.Style("display") = "none"
+        End If
+
     End Sub
 
     Public Sub ListaDatos()
@@ -71,45 +83,63 @@ Partial Class CargaListadoDocumentosVer
             valoratras.Text = version
             'documentoselect.Text = DataGrid1.SelectedItem.Cells(1).Text & " (Versión: " & version & ")"
             objConexíon.Conectar()
-            ds = objConexíon.EjecutarConsultaSQL("Select Ruta From Docs_Digitaliza_Ref Where IDReferencia = '" & Request.QueryString("IDRef") & "' And IDDocumento = '" & Request.QueryString("selDocument") & "' And Version = '" & version & "'")
+            ds = objConexíon.EjecutarConsultaSQL("Select Ruta From Docs_Digitaliza_Ref Where IDReferencia = '" & Request.QueryString("IDRef") & "' And IDDocumento = '" & Request.QueryString("IDDoc") & "' And Version = '" & version & "'")
             objConexíon.DesConectar()
 
             If ds.Tables(0).Rows.Count > 0 Then
                 _ruta = ds.Tables(0).Rows(0).Item("Ruta")
-
-                strScript = "<script language=" & Chr(34) & " javascript" & Chr(34) & ">" & Chr(10) & Chr(13)
-                strScript &= " window.document.imgLoadN.src = '" & _ruta & "';" & Chr(10) & Chr(13)
-                strScript &= "</script>" & Chr(10) & Chr(13)
-                ClientScript.RegisterClientScriptBlock(Me.GetType(), "FileAttach" & value, strScript)
+                SelectedFileSource.Value = _ruta
+                'strScript = "<script language=" & Chr(34) & " javascript" & Chr(34) & ">" & Chr(10) & Chr(13)
+                'strScript &= " window.document.imgLoadN.src = '" & _ruta & "';" & Chr(10) & Chr(13)
+                'strScript &= "</script>" & Chr(10) & Chr(13)
+                'ClientScript.RegisterClientScriptBlock(Me.GetType(), "FileAttach" & value, strScript)
             Else
-                strScript = "<script language=" & Chr(34) & " javascript" & Chr(34) & ">" & Chr(10) & Chr(13)
-                strScript &= " window.document.imgLoadN.src = 'http://64.182.79.210/clientsiswebprod/images/no-image-available.png';" & Chr(10) & Chr(13)
-                strScript &= "</script>" & Chr(10) & Chr(13)
-                ClientScript.RegisterClientScriptBlock(Me.GetType(), "FileAttach" & value, strScript)
+                SelectedFileSource.Value = "http://64.182.79.210/clientsiswebprod/images/Imagen_no_disponible.png"
+                'strScript = "<script language=" & Chr(34) & " javascript" & Chr(34) & ">" & Chr(10) & Chr(13)
+                'strScript &= " window.document.imgLoadN.src = 'http://64.182.79.210/clientsiswebprod/images/no-image-available.png';" & Chr(10) & Chr(13)
+                'strScript &= "</script>" & Chr(10) & Chr(13)
+                'ClientScript.RegisterClientScriptBlock(Me.GetType(), "FileAttach" & value, strScript)
             End If
         Catch ex As Exception
         End Try
     End Sub
 
-    ' Protected Sub lnkAtras_Command(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.CommandEventArgs)
-    '     Try
-    '         Dim valor As String = e.CommandArgument.ToString()
-    '         Dim lblVersion As Label = DirectCast(DataGrid1.Items(DataGrid1.SelectedIndex).FindControl("lblVersion"), Label)
-    'If valoratras.Text = "" Then
-    '	valoratras.Text = CInt(lblVersion.Text)
-    'End if
-    'If CInt(valoratras.Text) = 1 Then
-    '	lblVersion.Text = CInt(valoratras.Text)
-    '             'Exit Sub
-    '         ElseIf CInt(valoratras.Text) > 1 Then
-    '             lblVersion.Text = (CInt(valoratras.Text) - 1).ToString()
-    '	valoratras.Text = (CInt(valoratras.Text) - 1).ToString()
-    '         End If
+    Private Sub UpdateSelectedDoc(ByVal DocType As String)
+        Dim DocName As String = ""
+        If DocType.Equals("1") Then
+            DocName = "Identificación Oficial"
+        ElseIf (DocType.Equals("2")) Then
+            DocName = "Comprobante de Domicilio"
+        ElseIf (DocType.Equals("3")) Then
+            DocName = "Estado de Cuenta"
+        ElseIf (DocType.Equals("4")) Then
+            DocName = "Recibo de Nómina"
+        ElseIf (DocType.Equals("5")) Then
+            DocName = "Consulta Buro de Crédito"
+        End If
 
-    '         CargarYMostrarImagen(valoratras.Text)
-    '     Catch ex As Exception
-    '     End Try
-    ' End Sub
+        SelectedDoc.Text = DocName
+    End Sub
+
+    'Protected Sub lnkAtras_Command(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.CommandEventArgs)
+    '    Try
+    '        Dim valor As String = e.CommandArgument.ToString()
+    '        Dim lblVersion As Label = DirectCast(DataGrid1.Items(DataGrid1.SelectedIndex).FindControl("lblVersion"), Label)
+    '        If valoratras.Text = "" Then
+    '            valoratras.Text = CInt(lblVersion.Text)
+    '        End If
+    '        If CInt(valoratras.Text) = 1 Then
+    '            lblVersion.Text = CInt(valoratras.Text)
+    '            'Exit Sub
+    '        ElseIf CInt(valoratras.Text) > 1 Then
+    '            lblVersion.Text = (CInt(valoratras.Text) - 1).ToString()
+    '            valoratras.Text = (CInt(valoratras.Text) - 1).ToString()
+    '        End If
+
+    '        CargarYMostrarImagen(valoratras.Text)
+    '    Catch ex As Exception
+    '    End Try
+    'End Sub
 
     ' Protected Sub lnkAdelante_Command(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.CommandEventArgs)
     '     Try
@@ -137,22 +167,19 @@ Partial Class CargaListadoDocumentosVer
     '    CargarYMostrarImagen(hdfVer.Value)
     'End Sub
 
-    Protected Sub SelectedVersion_SelectedIndexChanged(sender As Object, e As EventArgs)
 
-
-    End Sub
-    Protected Sub btnVistaPrevia_ItemCommand(source As Object, e As DataGridCommandEventArgs)
-        Dim hdfVer As HiddenField = DirectCast(DataGrid1.SelectedItem.FindControl("hdfVer"), HiddenField)
-        CargarYMostrarImagen(hdfVer.Value)
-    End Sub
-    Public Sub VistaPrevia_ServerClick(ByVal sender As Object, ByVal e As CommandEventArgs)
-        'e.CommandArgument  contains email address
-        'e.CommandName = "Delete"
-        'You can handle other command buttons with other names as well
-    End Sub
-    Protected Sub DataGrid1_EditCommand(source As Object, e As DataGridCommandEventArgs)
-        'e.CommandArgument  contains email address
-        'e.CommandName = "Delete"
-        'You can handle other command buttons with other names as well
-    End Sub
+    'Protected Sub btnVistaPrevia_ItemCommand(source As Object, e As DataGridCommandEventArgs)
+    '    Dim hdfVer As HiddenField = DirectCast(DataGrid1.SelectedItem.FindControl("hdfVer"), HiddenField)
+    '    CargarYMostrarImagen(hdfVer.Value)
+    'End Sub
+    'Public Sub VistaPrevia_ServerClick(ByVal sender As Object, ByVal e As CommandEventArgs)
+    '    'e.CommandArgument  contains email address
+    '    'e.CommandName = "Delete"
+    '    'You can handle other command buttons with other names as well
+    'End Sub
+    'Protected Sub DataGrid1_EditCommand(source As Object, e As DataGridCommandEventArgs)
+    '    'e.CommandArgument  contains email address
+    '    'e.CommandName = "Delete"
+    '    'You can handle other command buttons with other names as well
+    'End Sub
 End Class
