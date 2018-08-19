@@ -200,7 +200,7 @@ Partial Class capturas
     '    End Try
     'End Sub
 
-    Private Sub CreaPDF(ByVal RfcValue As String)
+    Private Sub CreaPDF(RfcValue)
         Dim _pys2 As String
         Dim fechareg As String
         Dim nombrereg As String
@@ -210,7 +210,7 @@ Partial Class capturas
         Dim _pysdatos2 As DataSet = New DataSet
         Dim objConexion2 As New ConexionBD()
         objConexion2.Conectar()
-        _pys2 = "SELECT convert(varchar, fecha, 103) as fecha,primernombre + ' ' + segundonombre + ' ' + apellidopaterno + ' ' + apellidomaterno as nombre, Id " &
+        _pys2 = "SELECT convert(varchar, fecha, 103) as fecha,primernombre + ' ' + segundonombre + ' ' + apellidopaterno + ' ' + apellidomaterno as nombre, Id " & _
                 "FROM registro_clientes WHERE referenciaburo = '" & RfcValue & "'"
         _pysdatos2 = objConexion2.EjecutarConsultaSQL(_pys2)
         objConexion2.DesConectar()
@@ -221,7 +221,7 @@ Partial Class capturas
         nompdfreg = "NOMPVAL_6_Clausulas_GLC_Medios_Electronicos_" & idreg & "_" & RfcValue
 
         Dim pdfTemplate As String = Server.MapPath("SolicitudesPDF\NOMPVAL_6_Clausulas_GLC_Medios_Electronicos_Formv1.pdf")
-        Dim newFile As String = "C:\clientsiswebprod\ArchivosPDF\" & nompdfreg & ".pdf"
+        Dim newFile As String = "C:\" + ConfigurationManager.AppSettings("serverFolder").ToString() + "\ArchivosPDF\" & nompdfreg & ".pdf"
         Dim pdfReader As New PdfReader(pdfTemplate)
         Dim pdfStamper As New PdfStamper(pdfReader, New FileStream(newFile, FileMode.Create))
         Dim pdfFormFields As AcroFields = pdfStamper.AcroFields
@@ -232,7 +232,7 @@ Partial Class capturas
         pdfStamper.FormFlattening = True
         pdfStamper.Close()
 
-        Name1 = "C:\clientsiswebprod\ArchivosPDF\" & nompdfreg & ".pdf"
+        Name1 = "C:\" + ConfigurationManager.AppSettings("serverFolder").ToString() + "\ArchivosPDF\" & nompdfreg & ".pdf"
         Response.ClearContent()
         Response.ClearHeaders()
         Response.ContentType() = "application/pdf"
@@ -247,7 +247,7 @@ Partial Class capturas
         Dim pdfw As iTextSharp.text.pdf.PdfWriter
         Dim cb As PdfContentByte
         Dim fuente As iTextSharp.text.pdf.BaseFont
-        Dim NombreArchivo As String = "C:\clientsiswebprod\ArchivosPDF\ejemplo.pdf"
+        Dim NombreArchivo As String = "C:\" + ConfigurationManager.AppSettings("serverFolder").ToString() + "\ArchivosPDF\ejemplo.pdf"
         Try
             pdfw = PdfWriter.GetInstance(oDoc, New FileStream(NombreArchivo, FileMode.Create, FileAccess.Write, FileShare.None))
             'Apertura del documento.

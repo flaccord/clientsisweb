@@ -94,7 +94,7 @@ Partial Class CargaListadoDocumentosVer
                 'strScript &= "</script>" & Chr(10) & Chr(13)
                 'ClientScript.RegisterClientScriptBlock(Me.GetType(), "FileAttach" & value, strScript)
             Else
-                SelectedFileSource.Value = "http://64.182.79.210/clientsiswebprod/images/Imagen_no_disponible.png"
+                SelectedFileSource.Value = "http://64.182.79.210/" + ConfigurationManager.AppSettings("serverFolder").ToString() + "/images/Imagen_no_disponible.png"
                 'strScript = "<script language=" & Chr(34) & " javascript" & Chr(34) & ">" & Chr(10) & Chr(13)
                 'strScript &= " window.document.imgLoadN.src = 'http://64.182.79.210/clientsiswebprod/images/no-image-available.png';" & Chr(10) & Chr(13)
                 'strScript &= "</script>" & Chr(10) & Chr(13)
