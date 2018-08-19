@@ -200,7 +200,7 @@ Partial Class capturas
     '    End Try
     'End Sub
 
-    Private Sub CreaPDF(RfcValue)
+    Private Sub CreaPDF(ByVal RfcValue As String)
         Dim _pys2 As String
         Dim fechareg As String
         Dim nombrereg As String
@@ -210,7 +210,7 @@ Partial Class capturas
         Dim _pysdatos2 As DataSet = New DataSet
         Dim objConexion2 As New ConexionBD()
         objConexion2.Conectar()
-        _pys2 = "SELECT convert(varchar, fecha, 103) as fecha,primernombre + ' ' + segundonombre + ' ' + apellidopaterno + ' ' + apellidomaterno as nombre, Id " & _
+        _pys2 = "SELECT convert(varchar, fecha, 103) as fecha,primernombre + ' ' + segundonombre + ' ' + apellidopaterno + ' ' + apellidomaterno as nombre, Id " &
                 "FROM registro_clientes WHERE referenciaburo = '" & RfcValue & "'"
         _pysdatos2 = objConexion2.EjecutarConsultaSQL(_pys2)
         objConexion2.DesConectar()
