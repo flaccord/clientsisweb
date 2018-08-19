@@ -86,7 +86,7 @@ Partial Class CargarArchivos
                 .Version = _newVersion
 
                 ImgNa &= _newVersion & ".jpg"
-                .Ruta = "http://64.182.79.210/" + ConfigurationManager.AppSettings("serverFolder").ToString() + "/Repositorio/" & ImgNa
+                .Ruta = "/Repositorio/" & ImgNa
 
                 fileName = "C:\" + ConfigurationManager.AppSettings("serverFolder").ToString() + "\Repositorio\" & ImgNa
                 imageJpeg.Save(fileName, ici, eps)
