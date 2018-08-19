@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="SoAgregaImagenM.aspx.vb" Inherits="So_SoAgregaImagenM" %>
-<%@ Register TagPrefix="fup" Namespace="OboutInc.FileUpload" Assembly="obout_FileUpload" %>
-<%@ Register TagPrefix="eo" NameSpace="EO.Web" Assembly="EO.Web" %>
+<%--<%@ Register TagPrefix="fup" Namespace="OboutInc.FileUpload" Assembly="obout_FileUpload" %>
+<%@ Register TagPrefix="eo" NameSpace="EO.Web" Assembly="EO.Web" %>--%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -92,7 +92,7 @@ function clearFileInputs()
                     <tr>
                         <td style="width: 1816px">
                                        
-                    <fup:FileUploadProgress ID="FileUploadProgress1" 
+<%--                    <fup:FileUploadProgress ID="FileUploadProgress1" 
                                                OnClientProgressStopped   = "function(){}"
                                                OnClientProgressStarted   = "function(){}"
                                                OnClientSubmitting        = "function(){}"
@@ -106,7 +106,7 @@ function clearFileInputs()
                                              <AllowedFileFormats>
                                                   <fup:Format Ext="jpg" MaxByteSize="1024000" />                                                  
                                              </AllowedFileFormats>
-                                          </fup:FileUploadProgress>
+                                          </fup:FileUploadProgress>--%>
                     </td>
                         <td style="width: 372px">
                         </td>

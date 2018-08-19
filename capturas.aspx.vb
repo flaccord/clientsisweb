@@ -16,31 +16,32 @@ Imports iTextSharp.text.xml
 
 Partial Class capturas
     Inherits System.Web.UI.Page
-	Dim RefBuro As String
-	
-	Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-		Try
-		
-		'-- Si no hay usuario logueado, que vaya directamente al loguin
-		If Session("ActiveUser") = "" Then
-			Response.Write("<script language='JavaScript'>top.location.href='LoginAcceso.aspx';</script>")
-		End If
-		If Session("PerfilUser") = "Admin" Then
-			Response.Write("<script language='JavaScript'>top.location.href='menu.aspx';</script>")
-		End If
-		'--
-		
-		RefBuro = Session("ReferenciaBuro")
-		if RefBuro <> "" Then
-			'Response.Write("<script language='JavaScript'>alert('El cliente ha sido registrado Correctamente! Referencia No. " & RefBuro & "');</script>")
-		Else
-			RefBuro = Request.QueryString("Ref")
-		End If
-		
-		'llena los campos de Puntos y Semaforo
-		if RefBuro <> "" Then
-			ListaPuntosySemaforo()
-		Else
+    Dim RefBuro As String
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        Try
+            PageHeading.InnerText = "Capturas"
+            '-- Si no hay usuario logueado, que vaya directamente al loguin
+            If Session("ActiveUser") = "" Then
+                Response.Write("<script language='JavaScript'>top.location.href='LoginAcceso.aspx';</script>")
+            End If
+            If Session("PerfilUser") = "Admin" Then
+                Response.Write("<script language='JavaScript'>top.location.href='menu.aspx';</script>")
+            End If
+            '--
+
+            RefBuro = Session("ReferenciaBuro")
+            If RefBuro <> "" Then
+                'Response.Write("<script language='JavaScript'>alert('El cliente ha sido registrado Correctamente! Referencia No. " & RefBuro & "');</script>")
+            Else
+                RefBuro = Request.QueryString("Ref")
+            End If
+
+            'llena los campos de Puntos y Semaforo
+            If RefBuro <> "" Then
+                ListaPuntosySemaforo()
+                PageHeading.InnerText = "Detalle de Puntos"
+            Else
                 tablepuntosysema.Visible = False
                 'Table6.Visible = False
             End If
@@ -49,79 +50,81 @@ Partial Class capturas
 
             'Creamos la cadena de conexion'
             Dim strConexion As String
-		strConexion = ConfigurationManager.ConnectionStrings("dbMysql").ConnectionString
-		
-		'Creamos el objeto conexion para enlazar con el servidor de datos
-		Dim oConnection As OdbcConnection = New OdbcConnection(strConexion)
+            strConexion = ConfigurationManager.ConnectionStrings("dbMysql").ConnectionString
 
-		'Creamos la sentencia SQL que devuelva los datos deseados
-		Dim strSQL As String
-		If RefBuro <> "" Then
-			strSQL = "SELECT fecha_consulta,id,rfc,concat(primer_nombre,' ',segundo_nombre,' ',apellido_paterno,' ',apellido_materno) as nombre,date_format(fecha_nacimiento,'%d/%m/%Y') as fecha_nacimiento,referencia_buro,referencia_cliente,ifnull(s.codigo_score,'') as codigo_score,ifnull(s.valor_score,'') as valor_score FROM consulta c left outer join score s on s.id_consulta = c.id WHERE referencia_buro = '" & RefBuro & "' order by fecha_consulta; "
-			'Instanciamos el objeto Command
-			'recibe la sentencia a ejecutar y la conexión
-			Dim oDataAdapter As OdbcDataAdapter = New OdbcDataAdapter(strSQL, oConnection)
-			Dim oDataSet As DataSet = New DataSet()
-			oDataAdapter.Fill(oDataSet)
+            'Creamos el objeto conexion para enlazar con el servidor de datos
+            Dim oConnection As OdbcConnection = New OdbcConnection(strConexion)
+
+            'Creamos la sentencia SQL que devuelva los datos deseados
+            Dim strSQL As String
+            If RefBuro <> "" Then
+                strSQL = "SELECT fecha_consulta,id,rfc,concat(primer_nombre,' ',segundo_nombre,' ',apellido_paterno,' ',apellido_materno) as nombre,date_format(fecha_nacimiento,'%d/%m/%Y') as fecha_nacimiento,referencia_buro,referencia_cliente,ifnull(s.codigo_score,'') as codigo_score,ifnull(s.valor_score,'') as valor_score FROM consulta c left outer join score s on s.id_consulta = c.id WHERE referencia_buro = '" & RefBuro & "' order by fecha_consulta; "
+                'Instanciamos el objeto Command
+                'recibe la sentencia a ejecutar y la conexión
+                Dim oDataAdapter As OdbcDataAdapter = New OdbcDataAdapter(strSQL, oConnection)
+                Dim oDataSet As DataSet = New DataSet()
+                oDataAdapter.Fill(oDataSet)
                 GridView1.DataSource = oDataSet
                 If oDataSet.Tables(0).Rows.Count > 0 Then
                     scoreburo.Text = oDataSet.Tables(0).Rows(0).Item("valor_score")
                 End If
             End If
-		
-		Dim _pys1 As String
-        Dim _pysdatos1 As DataSet = New DataSet
-        Dim objConexion1 As New ConexionBD()
-        objConexion1.Conectar()
-        if RefBuro = "" Then
-			If Session("PerfilUser") = "A" Then
-				_pys1 = "SELECT (convert(varchar, r.fecha, 103) + ' ' + convert(varchar, r.fecha, 108)) as fecha,r.rfc,r.primernombre + ' ' + r.segundonombre + ' ' + r.apellidopaterno + ' ' + r.apellidomaterno as nombre, " & _
-					"r.referenciaburo,r.Puntos,r.Semaforo,r.Id,r.errorburo " & _
-					"FROM registro_clientes r, Usuarios_Sistema u " & _
-					"WHERE r.KeyUsuario = u.KeyUsuario AND u.IdComunidad = " & Session("ComunidadUser") & " " & _
-					"order by r.Id"
-			Else
-				_pys1 = "SELECT (convert(varchar, r.fecha, 103) + ' ' + convert(varchar, r.fecha, 108)) as fecha,r.rfc,r.primernombre + ' ' + r.segundonombre + ' ' + r.apellidopaterno + ' ' + r.apellidomaterno as nombre, " & _
-					"r.referenciaburo,r.Puntos,r.Semaforo,r.Id,r.errorburo " & _
-					"FROM registro_clientes r " & _
-					"WHERE r.KeyUsuario = '" & Session("ActiveUser") &"' " & _
-					"order by r.Id"				
-			End If
-		Else
-			If Session("PerfilUser") = "A" Then
-				_pys1 = "SELECT (convert(varchar, r.fecha, 103) + ' ' + convert(varchar, r.fecha, 108)) as fecha,r.rfc,r.primernombre + ' ' + r.segundonombre + ' ' + r.apellidopaterno + ' ' + r.apellidomaterno as nombre, " & _
-					"r.referenciaburo,r.Puntos,r.Semaforo,r.Id,r.errorburo " & _
-					"FROM registro_clientes r, Usuarios_Sistema u " & _
-					"WHERE r.KeyUsuario = u.KeyUsuario AND u.IdComunidad = " & Session("ComunidadUser") & " AND r.referenciaburo = '" & RefBuro & "'" & _
-					"order by r.Id"
-			Else
-				_pys1 = "SELECT (convert(varchar, r.fecha, 103) + ' ' + convert(varchar, r.fecha, 108)) as fecha,r.rfc,r.primernombre + ' ' + r.segundonombre + ' ' + r.apellidopaterno + ' ' + r.apellidomaterno as nombre, " & _
-					"r.referenciaburo,r.Puntos,r.Semaforo,r.Id,r.errorburo " & _
-					"FROM registro_clientes r " & _
-					"WHERE r.KeyUsuario = '" & Session("ActiveUser") &"' AND r.referenciaburo = '" & RefBuro & "'" & _
-					"order by r.Id"
-			End If
-		End If
-        _pysdatos1 = objConexion1.EjecutarConsultaSQL(_pys1)
-        objConexion1.DesConectar()
-        objConexion1 = Nothing
 
-		GridView1.DataSource = _pysdatos1
-		GridView1.DataBind()
+            Dim _pys1 As String
+            Dim _pysdatos1 As DataSet = New DataSet
+            Dim objConexion1 As New ConexionBD()
+            objConexion1.Conectar()
+            If RefBuro = "" Then
+                If Session("PerfilUser") = "A" Then
+                    _pys1 = "SELECT (convert(varchar, r.fecha, 103) + ' ' + convert(varchar, r.fecha, 108)) as fecha,r.rfc,r.primernombre + ' ' + r.segundonombre + ' ' + r.apellidopaterno + ' ' + r.apellidomaterno as nombre, " &
+                        "r.referenciaburo,r.Puntos,r.Semaforo,r.Id,r.errorburo " &
+                        "FROM registro_clientes r, Usuarios_Sistema u " &
+                        "WHERE r.KeyUsuario = u.KeyUsuario AND u.IdComunidad = " & Session("ComunidadUser") & " " &
+                        "order by r.Id"
+                Else
+                    _pys1 = "SELECT (convert(varchar, r.fecha, 103) + ' ' + convert(varchar, r.fecha, 108)) as fecha,r.rfc,r.primernombre + ' ' + r.segundonombre + ' ' + r.apellidopaterno + ' ' + r.apellidomaterno as nombre, " &
+                        "r.referenciaburo,r.Puntos,r.Semaforo,r.Id,r.errorburo " &
+                        "FROM registro_clientes r " &
+                        "WHERE r.KeyUsuario = '" & Session("ActiveUser") & "' " &
+                        "order by r.Id"
+                End If
+            Else
+                If Session("PerfilUser") = "A" Then
+                    _pys1 = "SELECT (convert(varchar, r.fecha, 103) + ' ' + convert(varchar, r.fecha, 108)) as fecha,r.rfc,r.primernombre + ' ' + r.segundonombre + ' ' + r.apellidopaterno + ' ' + r.apellidomaterno as nombre, " &
+                        "r.referenciaburo,r.Puntos,r.Semaforo,r.Id,r.errorburo " &
+                        "FROM registro_clientes r, Usuarios_Sistema u " &
+                        "WHERE r.KeyUsuario = u.KeyUsuario AND u.IdComunidad = " & Session("ComunidadUser") & " AND r.referenciaburo = '" & RefBuro & "'" &
+                        "order by r.Id"
+                Else
+                    _pys1 = "SELECT (convert(varchar, r.fecha, 103) + ' ' + convert(varchar, r.fecha, 108)) as fecha,r.rfc,r.primernombre + ' ' + r.segundonombre + ' ' + r.apellidopaterno + ' ' + r.apellidomaterno as nombre, " &
+                        "r.referenciaburo,r.Puntos,r.Semaforo,r.Id,r.errorburo " &
+                        "FROM registro_clientes r " &
+                        "WHERE r.KeyUsuario = '" & Session("ActiveUser") & "' AND r.referenciaburo = '" & RefBuro & "'" &
+                        "order by r.Id"
+                End If
+            End If
+            _pysdatos1 = objConexion1.EjecutarConsultaSQL(_pys1)
+            objConexion1.DesConectar()
+            objConexion1 = Nothing
 
-		Session("ReferenciaBuro") = ""
+            GridView1.DataSource = _pysdatos1
+            GridView1.DataBind()
 
-		If GridView1.Rows.Count > 0 Then
+            Session("ReferenciaBuro") = ""
+
+            If GridView1.Rows.Count > 0 Then
                 ErrorMsg.Text = ""
             Else
                 ErrorMsg.Text = "No se encontraron registros."
                 Response.Redirect("rfcconsulta.htm?msj=noreg")
             End If
-		
 
-		Catch ex As Exception
-			
-		End Try
+
+        Catch ex As Exception
+
+        End Try
+
+        Me.RegisterPostBackControl()
     End Sub
 	
     Private Sub ListaPuntosySemaforo()
@@ -175,13 +178,13 @@ Partial Class capturas
                     'Table6.Visible = False
                 End If
                 If e.Row.Cells(5).Text = "Amarillo" Then
-                    e.Row.Cells(5).BackColor = Drawing.Color.Yellow
+                    e.Row.Cells(5).BackColor = Drawing.Color.FromArgb(255, 241, 195, 64)
                 End If
                 If e.Row.Cells(5).Text = "Verde" Then
-                    e.Row.Cells(5).BackColor = Drawing.Color.Green
+                    e.Row.Cells(5).BackColor = Drawing.Color.FromArgb(255, 14, 132, 79)
                 End If
 				If e.Row.Cells(5).Text = "Azul" Then
-                    e.Row.Cells(5).BackColor = Drawing.Color.Blue
+                    e.Row.Cells(5).BackColor = Drawing.Color.FromArgb(255, 29, 98, 138)
                     e.Row.Cells(7).Text = ""
                     'Table6.Visible = False
                 End If
@@ -232,7 +235,7 @@ Partial Class capturas
         Name1 = "C:\clientsiswebprod\ArchivosPDF\" & nompdfreg & ".pdf"
         Response.ClearContent()
         Response.ClearHeaders()
-        Response.ContentType() = "application/octet-stream"
+        Response.ContentType() = "application/pdf"
         Response.WriteFile(Name1)
         Response.AddHeader("content-disposition", "attachment; filename=" & nompdfreg & ".pdf")
         Response.Flush()
@@ -293,9 +296,17 @@ Partial Class capturas
             If RfcValue IsNot Nothing Then
                 CreaPDF(RfcValue)
             End If
-
         Catch ex As Exception
-
+            Throw ex
         End Try
+    End Sub
+
+    Private Sub RegisterPostBackControl()
+        For Each row As GridViewRow In GridView1.Rows
+            Dim lnkFull As LinkButton = TryCast(row.FindControl("Buttondoc"), LinkButton)
+            If lnkFull IsNot Nothing Then
+                ScriptManager.GetCurrent(Me).RegisterPostBackControl(lnkFull)
+            End If
+        Next
     End Sub
 End Class

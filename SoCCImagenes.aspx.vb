@@ -125,19 +125,19 @@ Partial Class So_SoCCImagenes
 
     Public Sub ListaDatos()
         DSService = New ServiciosWEB.Servicios
-        tQuery = " SoSolicitudes.IdSolicitud, SoSolicitudes.Transaccion, SoSolicitudes.Folio, " & _
-                 " SoSolicitudesAttach.Archivo From SoSolicitudesAttach INNER JOIN SoSolicitudes On SoSolicitudes.IdSolicitud = " & _
+        tQuery = " SoSolicitudes.IdSolicitud, SoSolicitudes.Transaccion, SoSolicitudes.Folio, " &
+                 " SoSolicitudesAttach.Archivo From SoSolicitudesAttach INNER JOIN SoSolicitudes On SoSolicitudes.IdSolicitud = " &
                  " SoSolicitudesAttach.IdSolicitud Where SoSolicitudesAttach.IdSolicitud = '" & Request.QueryString("IDvar") & "'"
         Respuesta = DSService.ConsultaGeneral(tQuery, ConnStr)
         'DataGrid1.DataSource = Respuesta
         'DataGrid1.DataBind()
     End Sub
 
-    'Protected Sub Button1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button1.Click
-    '    Dim strScript As String
-    '    strScript = "<script language=" & Chr(34) & "javascript" & Chr(34) & ">" & Chr(10) & Chr(13)
-    '    strScript = strScript & "window.parent.close();" & Chr(10) & Chr(13)
-    '    strScript = strScript & "</script>" & Chr(10) & Chr(13)
-    '    ClientScript.RegisterClientScriptBlock(Me.GetType(), "Close", strScript)
-    'End Sub
+    Protected Sub Button1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button1.Click
+        Dim strScript As String
+        strScript = "<script language=" & Chr(34) & "javascript" & Chr(34) & ">" & Chr(10) & Chr(13)
+        strScript = strScript & "window.parent.close();" & Chr(10) & Chr(13)
+        strScript = strScript & "</script>" & Chr(10) & Chr(13)
+        ClientScript.RegisterClientScriptBlock(Me.GetType(), "Close", strScript)
+    End Sub
 End Class

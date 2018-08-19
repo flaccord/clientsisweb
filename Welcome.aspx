@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Welcome.aspx.vb" Inherits="Welcome" %>
 
-<%@ Register Assembly="obout_Window_NET" Namespace="OboutInc.Window" TagPrefix="owd" %>
-<%@ Register TagPrefix="spl" Namespace="OboutInc.Splitter2" Assembly="obout_Splitter2_Net" %>
+<%--<%@ Register Assembly="obout_Window_NET" Namespace="OboutInc.Window" TagPrefix="owd" %>
+<%@ Register TagPrefix="spl" Namespace="OboutInc.Splitter2" Assembly="obout_Splitter2_Net" %>--%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -60,7 +60,7 @@
     </style>
 </head>
 <body onbeforeunload="closeIt()">
-    <form id="form1" runat="server">
+    <%--<form id="form1" runat="server">
     <owd:Window ID="myWindow" runat="server" IsModal="true" ShowCloseButton="true" Status="Hello" Left="200" Top="100" Height="240"  Width="320" VisibleOnLoad="false" StyleFolder="Styles/Ventana" Title="Obout Window">
     </owd:Window>
     <spl:Splitter CookieDays="0" id="sp1" runat="server" StyleFolder="Styles/Divisor" CollapsePanel="left" LiveResize="true" RememberScrollPosition="true">
@@ -100,7 +100,7 @@
 	</RightPanel>
 </spl:Splitter>
     
-    </form>
+    </form>--%>
 </body>
 </html>
 
