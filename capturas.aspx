@@ -193,7 +193,7 @@
 </head>
 <body>
     <iframe id="menu" style="width: 100%; height: 1000px; vertical-align: middle; text-align: left;" src="menu.aspx?m=6qfo0PQf" scrolling="no" frameborder="0" runat="server"></iframe>
-    <div class="container registro1" style="position: absolute; top: 50px; padding: 0; width: 1349px; opacity: 1; background-repeat: repeat-y">
+    <div class="container registro1" style="position: absolute; top: 50px; padding: 0; width: 100%; opacity: 1; background-repeat: repeat-y">
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
@@ -246,11 +246,10 @@
                                                 </div>
                                                 <div class="col-lg-6 col-xs-12 col-md-12 common-puntos">
                                                     <span class="section-label">Score</span>
-                                                    <label class="right">
+                                                    <span class="right">
                                                         <asp:Label ID="puntosscore" runat="server"></asp:Label>
-                                                        ( Buró:
-                                                        <asp:Label ID="scoreburo" runat="server"></asp:Label>
-                                                        )</label>
+                                                        ( Buró: <asp:Label ID="scoreburo" runat="server"></asp:Label> )
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
